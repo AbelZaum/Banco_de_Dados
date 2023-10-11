@@ -1,0 +1,22 @@
+create database escola;
+
+use escola;
+
+create table Turmas (
+IDTurma INT auto_increment primary KEY,
+NomeTurma varchar(255) not null,
+AnoLetivo int,
+ProfessorResponsavel int,
+FOREIGN KEY (ProfessorResponsavel) REFERENCES Professores (IDProfessor)
+);
+
+insert into alunos(ID, Nome, DataNascimento, Genero, Endereco, Contato)
+value ('0', 'Leo', '2003-10-31', 'M', 'Bertoldo João Correa', '991082731');
+
+drop table turmas;
+
+update alunos set nome = "" where nome = 'leo';
+
+delete from alunos where id = 4;
+
+select * from alunos;
