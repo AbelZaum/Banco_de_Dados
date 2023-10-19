@@ -2,21 +2,141 @@ create database escola;
 
 use escola;
 
-create table EventoEscolares (
-IDEvento INT auto_increment primary KEY,
+CREATE TABLE alunos(
+ID INT auto_increment primary key,
+Nome varchar(120) not null,
+DataNascimento DATE,
+Genero CHAR,
+Endereco VARCHAR(255),
+Contato VARCHAR(255)
+);
+
+INSERT INTO Alunos(Nome, DataNascimento, Genero, Endereco, Contato)
+VALUES 
+('João Silva', '2000-01-01', 'M', 'Rua das Flores, 123', 'joao.silva@gmail.com'),
+('Ana Souza', '2001-02-02', 'F', 'Avenida Brasil, 456', 'ana.souza@gmail.com'),
+('Pedro Costa', '2002-03-03', 'M', 'Rua das Pedras, 789', 'pedro.costa@gmail.com'),
+('Julia Santos', '2003-04-04', 'F', 'Avenida das Americas, 101112', 'julia.santos@gmail.com'),
+('Carlos Pereira', '2004-05-05', 'M', 'Rua das Estrelas, 131415', 'carlos.pereira@gmail.com');
+
+select * from alunos order by dataNascimento; 
+
+drop table alunos;
+
+select * from alunos;
+
+CREATE TABLE Professores(
+ID INT auto_increment primary key,
+Nome varchar(120) not null,
+DataNascimento DATE,
+Genero CHAR,
+Endereco VARCHAR(255),
+Contato VARCHAR(255)
+);
+
+INSERT INTO Professores(Nome, DataNascimento, Genero, Endereco, Contato)
+VALUES 
+('Maria Oliveira', '1980-01-01', 'F', 'Avenida Brasil, 456', 'maria.oliveira@gmail.com'),
+('Roberto Almeida', '1979-02-02', 'M', 'Rua das Pedras, 789', 'roberto.almeida@gmail.com');
+
+select * from Professores;
+
+CREATE TABLE Disciplinas(
+IDDisciplina int auto_increment primary key,
+NomeDisciplina varchar(255) not null
+);
+
+INSERT INTO Disciplinas(NomeDisciplina)
+VALUES 
+('Matemática'),
+('Português'),
+('História'),
+('Geografia'),
+('Ciências');
+
+CREATE TABLE Turmas(
+IDTurma int auto_increment primary key,
+nomeTurma varchar(255) not null,
+AnoLetivo int,
+ProfessorResponsavel int,
+foreign key (ProfessorResponsavel) references Professores(ID)
+);
+
+INSERT INTO Turmas(nomeTurma, AnoLetivo, ProfessorResponsavel)
+VALUES 
+('Turma A', 2023, 1),
+('Turma B', 2023, 2);
+
+select * from turmas where 
+
+
+CREATE TABLE Notas(
+IDNota int auto_increment primary key,
+IDAluno int,
+IDDisciplina int,
+Nota decimal(5, 2),
+foreign key (IDAluno) references Alunos (ID),
+foreign key (IDDisciplina) references Disciplinas (IDDisciplina)
+);
+
+insert into Notas(IDNota, IDAluno, IDDisciplinas, Nota)
+values
+(3, 1, 1, 8.5),
+(4, 2, 1, 9.0),
+(5, 3, 1, 7.5),
+(6, 4, 1, 8.0),
+(7, 5, 1, 9.5);
+
+
+CREATE TABLE Frequencia(
+IDFrequencia int auto_increment primary key,
+IDAluno int,
+IDDisciplinas int,
+Dia date,
+Presenca boolean,
+foreign key (IDAluno) references Alunos (ID),
+foreign key (IDDisciplina) references Disciplinas (IDDisciplina)
+);
+
+INSERT INTO Frequencia(IDFrequencia, IDAluno, IDDisciplinas, Dia, Presenca)
+VALUES 
+(1, 1, 1, '2023-01-01', true),
+(2, 1, 2, '2023-01-02', false),
+(3, 2, 3, '2023-01-03', true),
+(4, 2, 4, '2023-01-04', false),
+(5, 3, 5, '2023-01-05', true);
+
+select * from Frequencia;
+
+CREATE TABLE EventoEscolares(
+IDEvento int auto_increment primary key,
 NomeEvento varchar(255) not null,
 DataEvento date,
 Descricao text,
 Endereco varchar(255)
 );
 
-insert into alunos(ID, Nome, DataNascimento, Genero, Endereco, Contato)
-value ('0', 'Leo', '2003-10-31', 'M', 'Bertoldo João Correa', '991082731');
+INSERT INTO EventoEscolares(NomeEvento, DataEvento, Descricao, Endereco)
+VALUES 
+('Feira de Ciências', '2023-05-01', 'Feira de Ciências da Escola XYZ', 'Escola XYZ'),
+('Dia do Estudante', '2023-08-11', 'Comemoração do Dia do Estudante', 'Escola XYZ'),
+('Festa Junina', '2023-06-24', 'Festa Junina da Escola XYZ', 'Escola XYZ');
 
-drop table frequencia;
+select * from EventoEscolares;
+
+create table Usuarios (
+IDUsuario INT auto_increment primary KEY,
+NomeUsuario varchar(255) not null,
+Senha varchar(255) not null
+);
+
+INSERT INTO Usuarios(NomeUsuario, Senha)
+VALUES 
+('admin1', 'senha123'),
+('admin2', 'senha456');
 
 update alunos set nome = "Abel";
 
-delete from alunos where id = 6;
+delete from alunos where id = 8;
 
-select * from alunos;
+select * from alunos; 
